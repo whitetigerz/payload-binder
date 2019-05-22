@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+
+dpkg-reconfigure debconf
+apt update && apt upgrade -y
+apt install apktool openjdk-8-jdk -y
+cp ~/u-setup/publickey.pk8 /usr/lib/
+cp ~/u-setup/publickey.x509.pem /usr/lib/
+cp ~/u-setup/signapk /usr/bin/
+chmod 700 /usr/bin/signapk
+cp ~/u-setup/dr-apk /usr/bin/bind-apk
+chmod 700 /usr/bin/bind-apk
+cp ~/u-setup/signapk.jar /usr/bin/
+sed -i "s/#force_color_prompt=yes/force_color_prompt=yes/g" ~/.bashrc
+echo
+apktool --version
+echo
+signapk
+echo
+java --version
+echo " setup complete"
